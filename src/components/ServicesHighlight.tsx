@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import services from "@/data/services";
 import Reveal from "@/components/Reveal";
 
@@ -38,10 +37,8 @@ const ServicesHighlight = () => {
       <div className="mt-14 grid gap-10 lg:grid-cols-12">
         {services.map((service, index) => (
           <Reveal key={service.id} delay={index * 0.08} className={layouts[index % layouts.length]}>
-            <motion.article
-              whileHover={{ translateY: -12 }}
-              transition={{ type: "spring", stiffness: 210, damping: 24 }}
-              className="glass-surface hover-lift rounded-[3rem] border border-white/14 px-10 py-12"
+            <article
+              className="glass-surface hover-lift rounded-[3rem] border border-white/14 px-10 py-12 hover:-translate-y-3 transition-transform duration-300 ease-out"
               id={service.slug}
             >
               <div className="flex items-center justify-end text-xs text-white/65">
@@ -79,7 +76,7 @@ const ServicesHighlight = () => {
                   View work
                 </Link>
               </div>
-            </motion.article>
+            </article>
           </Reveal>
         ))}
       </div>

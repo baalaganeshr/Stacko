@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import courses from "@/data/courses";
 import Reveal from "@/components/Reveal";
 
@@ -227,15 +226,9 @@ const CourseShowcase = () => {
             const isActive = index === activeIndex;
             return (
               <Reveal key={course.id} delay={index * 0.04}>
-                <motion.article
+                <article
                   data-course-card="true"
-                  initial={false}
-                  animate={{
-                    scale: isActive ? 1 : 0.96,
-                    opacity: isActive ? 1 : 0.85,
-                  }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className={`snap-center group relative flex h-full flex-col rounded-[24px] border p-6 sm:p-8 backdrop-blur transition-all duration-300 ${variant.surface} ${isActive ? 'ring-2 ring-white/30 shadow-2xl' : 'hover:ring-1 hover:ring-white/15'}`}
+                  className={`snap-center group relative flex h-full flex-col rounded-[24px] border p-6 sm:p-8 backdrop-blur transition-all duration-300 ${variant.surface} ${isActive ? 'ring-2 ring-white/30 shadow-2xl scale-100 opacity-100' : 'hover:ring-1 hover:ring-white/15 scale-[0.96] opacity-85'}`}
                   style={{ 
                     minWidth: '320px', 
                     maxWidth: '380px',
@@ -310,7 +303,7 @@ const CourseShowcase = () => {
                       </Link>
                     </div>
                   </div>
-                </motion.article>
+                </article>
               </Reveal>
             );
           })}
@@ -338,10 +331,9 @@ const CourseShowcase = () => {
         </div>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
           <div className="h-1 w-36 overflow-hidden rounded-full bg-white/10 sm:w-48">
-            <motion.div
-              className="h-full rounded-full bg-white/70"
-              animate={{ width: `${Math.max(8, progressPercent)}%` }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+            <div
+              className="h-full rounded-full bg-white/70 transition-all duration-[600ms] ease-out"
+              style={{ width: `${Math.max(8, progressPercent)}%` }}
             />
           </div>
           <div className="flex items-center gap-2">
@@ -357,10 +349,10 @@ const CourseShowcase = () => {
                   aria-label={"Go to program " + (index + 1)}
                   className="group relative h-3 w-3 rounded-full bg-white/12 transition hover:bg-white/20"
                 >
-                  <motion.span
-                    className="absolute inset-0 rounded-full bg-white/70"
-                    animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.6 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
+                  <span
+                    className={`absolute inset-0 rounded-full bg-white/70 transition-all duration-[350ms] ease-out ${
+                      isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-[0.6]'
+                    }`}
                   />
                 </button>
               );

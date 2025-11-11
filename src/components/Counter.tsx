@@ -1,4 +1,3 @@
-import { animate } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
 type CounterProps = {
@@ -8,7 +7,7 @@ type CounterProps = {
   suffix?: string;
 };
 
-const Counter = ({ value, duration = 1.6, prefix = "", suffix = "" }: CounterProps) => {
+const Counter = ({ value, duration = 1600, prefix = "", suffix = "" }: CounterProps) => {
   const spanRef = useRef<HTMLSpanElement>(null);
   const [isAnimated, setAnimated] = useState(false);
 
@@ -34,16 +33,33 @@ const Counter = ({ value, duration = 1.6, prefix = "", suffix = "" }: CounterPro
   useEffect(() => {
     if (!isAnimated || !spanRef.current) return;
 
-    const controls = animate(0, value, {
-      duration,
-      ease: "easeOut",
-      onUpdate: (latest) => {
-        if (!spanRef.current) return;
-        spanRef.current.textContent = prefix + Math.round(latest).toString() + suffix;
-      },
-    });
+    let startTime: number | null = null;
+    let animationFrame: number;
 
-    return () => controls.stop();
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      
+      // Easing function (ease-out)
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const currentValue = Math.round(value * easeOut);
+      
+      if (spanRef.current) {
+        spanRef.current.textContent = prefix + currentValue.toString() + suffix;
+      }
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
   }, [isAnimated, value, duration, prefix, suffix]);
 
   return <span ref={spanRef} className="stat-emphasis font-semibold text-white" />;

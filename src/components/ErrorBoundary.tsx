@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
-import { motion } from 'framer-motion';
+
 
 interface Props {
   children: ReactNode;
@@ -83,11 +83,8 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, onRetry }) => {
 
   return (
     <div className="min-h-[60vh] flex items-center justify-center px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="glass-surface rounded-[3rem] border border-red-500/20 p-12 max-w-2xl w-full text-center space-y-8"
-      >
+      <div className="glass-surface rounded-[3rem] border border-red-500/20 p-12 max-w-2xl w-full text-center space-y-8 animate-fade-in-up">
+        
         <div className="space-y-4">
           <div className="w-20 h-20 mx-auto bg-gradient-to-br from-red-500/20 to-orange-500/20 rounded-full flex items-center justify-center">
             <svg 
@@ -133,23 +130,19 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, onRetry }) => {
         )}
 
         <div className="flex gap-4 justify-center">
-          <motion.button
+          <button
             onClick={onRetry}
-            className="btn btn-primary px-6 py-3 rounded-xl"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="btn btn-primary px-6 py-3 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-transform duration-150"
           >
             Try Again
-          </motion.button>
+          </button>
           
-          <motion.button
+          <button
             onClick={() => window.location.reload()}
-            className="btn btn-secondary px-6 py-3 rounded-xl"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="btn btn-secondary px-6 py-3 rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-transform duration-150"
           >
             Reload Page
-          </motion.button>
+          </button>
         </div>
 
         <div className="flex justify-center">
@@ -160,7 +153,7 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, onRetry }) => {
             Return to Home
           </a>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

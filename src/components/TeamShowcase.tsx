@@ -1,6 +1,5 @@
 ﻿import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import team from "@/data/team";
 import Reveal from "@/components/Reveal";
 
@@ -277,15 +276,9 @@ const TeamShowcase = React.memo(() => {
             const experience = mentorExperience[member.id] ?? "5+ years";
             return (
               <Reveal key={member.id} delay={index * 0.1} className="snap-center flex-shrink-0">
-                <motion.article
+                <article
                   data-mentor-card="true"
-                  initial={false}
-                  animate={{
-                    scale: isActive ? 1.02 : 0.98,
-                    opacity: isActive ? 1 : 0.85,
-                  }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className={`group relative flex h-full w-[min(85vw,22rem)] sm:w-[min(75vw,24rem)] md:w-[min(65vw,26rem)] lg:w-[min(55vw,28rem)] flex-col rounded-2xl border backdrop-blur-sm transition-all duration-500 ${variant.surface} ${isActive ? 'ring-2 ring-white/25 shadow-2xl' : 'hover:ring-1 hover:ring-white/15'}`}
+                  className={`group relative flex h-full w-[min(85vw,22rem)] sm:w-[min(75vw,24rem)] md:w-[min(65vw,26rem)] lg:w-[min(55vw,28rem)] flex-col rounded-2xl border backdrop-blur-sm transition-all duration-500 ${variant.surface} ${isActive ? 'ring-2 ring-white/25 shadow-2xl scale-[1.02] opacity-100' : 'hover:ring-1 hover:ring-white/15 scale-[0.98] opacity-85'}`}
                 >
                 {/* Professional gradient overlay */}
                 <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${variant.halo} opacity-0 transition-all duration-500 ${isActive ? 'opacity-40' : 'group-hover:opacity-20'}`} />
@@ -380,7 +373,7 @@ const TeamShowcase = React.memo(() => {
                     )}
                   </div>
                 </div>
-              </motion.article>
+              </article>
               </Reveal>
             );
           })}
@@ -412,10 +405,9 @@ const TeamShowcase = React.memo(() => {
         </div>
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
           <div className="h-1 w-36 overflow-hidden rounded-full bg-white/10 sm:w-48">
-            <motion.div
-              className="h-full rounded-full bg-white/70"
-              animate={{ width: `${Math.max(8, progressPercent)}%` }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+            <div
+              className="h-full rounded-full bg-white/70 transition-all duration-500 ease-out"
+              style={{ width: `${Math.max(8, progressPercent)}%` }}
             />
           </div>
           <div className="flex items-center gap-2">
@@ -431,10 +423,10 @@ const TeamShowcase = React.memo(() => {
                   aria-label={`Go to mentor ${index + 1}`}
                   className="group relative h-3 w-3 rounded-full bg-white/12 transition hover:bg-white/20"
                 >
-                  <motion.span
-                    className="absolute inset-0 rounded-full bg-white/70"
-                    animate={{ opacity: isActive ? 1 : 0, scale: isActive ? 1 : 0.6 }}
-                    transition={{ duration: 0.35, ease: "easeOut" }}
+                  <span
+                    className={`absolute inset-0 rounded-full bg-white/70 transition-all duration-300 ease-out ${
+                      isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-60'
+                    }`}
                   />
                 </button>
               );

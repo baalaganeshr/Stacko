@@ -1,32 +1,11 @@
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-
-const springConfig = { stiffness: 140, damping: 28, mass: 0.5 };
-const secondaryConfig = { stiffness: 80, damping: 35, mass: 0.8 };
-const tertiaryConfig = { stiffness: 60, damping: 40, mass: 1.2 };
+import { useEffect, useState, useRef } from "react";
 
 const CursorGlow = () => {
   const [isEnabled, setEnabled] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
-  
-  // Primary glow
-  const x = useMotionValue(-300);
-  const y = useMotionValue(-300);
-  
-  // Secondary glow
-  const secondaryX = useMotionValue(-300);
-  const secondaryY = useMotionValue(-300);
-  
-  // Tertiary ambient glow
-  const tertiaryX = useMotionValue(-300);
-  const tertiaryY = useMotionValue(-300);
-
-  const animatedX = useSpring(x, springConfig);
-  const animatedY = useSpring(y, springConfig);
-  const animatedSecondaryX = useSpring(secondaryX, secondaryConfig);
-  const animatedSecondaryY = useSpring(secondaryY, secondaryConfig);
-  const animatedTertiaryX = useSpring(tertiaryX, tertiaryConfig);
-  const animatedTertiaryY = useSpring(tertiaryY, tertiaryConfig);
+  const primaryRef = useRef<HTMLDivElement>(null);
+  const secondaryRef = useRef<HTMLDivElement>(null);
+  const tertiaryRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -36,20 +15,29 @@ const CursorGlow = () => {
       return;
     }
 
+    let rafId: number;
+
     const handleMove = (event: MouseEvent) => {
       const { clientX, clientY } = event;
       
-      // Primary glow (closest to cursor)
-      x.set(clientX - 140);
-      y.set(clientY - 140);
+      if (rafId) cancelAnimationFrame(rafId);
       
-      // Secondary glow (medium distance)
-      secondaryX.set(clientX - 100);
-      secondaryY.set(clientY - 100);
-      
-      // Tertiary ambient glow (furthest, most subtle)
-      tertiaryX.set(clientX - 200);
-      tertiaryY.set(clientY - 200);
+      rafId = requestAnimationFrame(() => {
+        // Primary glow (closest to cursor)
+        if (primaryRef.current) {
+          primaryRef.current.style.transform = `translate(${clientX - 140}px, ${clientY - 140}px)`;
+        }
+        
+        // Secondary glow (medium distance)  
+        if (secondaryRef.current) {
+          secondaryRef.current.style.transform = `translate(${clientX - 100}px, ${clientY - 100}px)`;
+        }
+        
+        // Tertiary ambient glow (furthest, most subtle)
+        if (tertiaryRef.current) {
+          tertiaryRef.current.style.transform = `translate(${clientX - 200}px, ${clientY - 200}px)`;
+        }
+      });
     };
 
     const handleMouseEnter = (event: MouseEvent) => {
@@ -63,16 +51,17 @@ const CursorGlow = () => {
       setIsHovering(false);
     };
 
-    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mousemove", handleMove, { passive: true });
     document.addEventListener("mouseenter", handleMouseEnter, true);
     document.addEventListener("mouseleave", handleMouseLeave, true);
     
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener("mousemove", handleMove);
       document.removeEventListener("mouseenter", handleMouseEnter, true);
       document.removeEventListener("mouseleave", handleMouseLeave, true);
     };
-  }, [x, y, secondaryX, secondaryY, tertiaryX, tertiaryY]);
+  }, []);
 
   if (!isEnabled) {
     return null;
@@ -81,23 +70,47 @@ const CursorGlow = () => {
   return (
     <>
       {/* Primary cursor glow - most prominent */}
-      <motion.div 
-        className={`cursor-glow-primary ${isHovering ? 'cursor-glow-active' : ''}`}
-        style={{ translateX: animatedX, translateY: animatedY }} 
+      <div 
+        ref={primaryRef}
+        className={`cursor-glow-primary ${isHovering ? 'cursor-glow-active' : ''} transition-transform duration-150 ease-out`}
+        style={{ 
+          position: 'fixed',
+          width: '280px',
+          height: '280px',
+          pointerEvents: 'none',
+          zIndex: -1,
+          transform: 'translate(-300px, -300px)'
+        }}
         aria-hidden 
       />
       
       {/* Secondary glow - medium prominence */}
-      <motion.div
-        className={`cursor-glow-secondary ${isHovering ? 'cursor-glow-active' : ''}`}
-        style={{ translateX: animatedSecondaryX, translateY: animatedSecondaryY }}
+      <div
+        ref={secondaryRef}
+        className={`cursor-glow-secondary ${isHovering ? 'cursor-glow-active' : ''} transition-transform duration-200 ease-out`}
+        style={{
+          position: 'fixed',
+          width: '200px', 
+          height: '200px',
+          pointerEvents: 'none',
+          zIndex: -1,
+          transform: 'translate(-300px, -300px)'
+        }}
         aria-hidden
       />
       
       {/* Tertiary ambient glow - most subtle */}
-      <motion.div
-        className={`cursor-glow-tertiary ${isHovering ? 'cursor-glow-active' : ''}`}
-        style={{ translateX: animatedTertiaryX, translateY: animatedTertiaryY }}
+      <div
+        ref={tertiaryRef}
+        className={`cursor-glow-tertiary ${isHovering ? 'cursor-glow-active' : ''} transition-transform duration-300 ease-out`}
+        style={{
+          position: 'fixed',
+          width: '400px',
+          height: '400px', 
+          pointerEvents: 'none',
+          zIndex: -1,
+          transform: 'translate(-300px, -300px)'
+        }}
         aria-hidden
       />
     </>

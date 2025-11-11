@@ -10,7 +10,7 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion', 'react-router-dom']
+    include: ['react', 'react-dom', 'react-router-dom']
   },
   server: {
     port: 5173,
@@ -33,8 +33,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          'animations': ['framer-motion']
+          'router': ['react-router-dom']
         },
         chunkFileNames: 'assets/js/[name]-[hash].js',
         entryFileNames: 'assets/js/[name]-[hash].js',

@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type RevealProps = {
   children: ReactNode;
@@ -8,16 +7,47 @@ type RevealProps = {
 };
 
 const Reveal = ({ children, delay = 0, className }: RevealProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { rootMargin: "-120px" }
+    );
+
+    const currentElement = ref.current;
+    if (currentElement) {
+      observer.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement);
+      }
+    };
+  }, []);
+
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0, y: 32 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-120px" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
+    <div
+      ref={ref}
+      className={`${className} transition-all duration-[600ms] ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-8'
+      }`}
+      style={{
+        transitionDelay: `${delay * 1000}ms`,
+        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)'
+      }}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

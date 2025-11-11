@@ -1,0 +1,373 @@
+/* =====================================
+   STACKO MOBILE OPTIMIZATION CSS
+   ===================================== */
+
+/* Mobile-First Base Improvements */
+@media (max-width: 768px) {
+  /* Enhanced viewport handling */
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Better scroll performance */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Enhanced focus visibility for mobile */
+  *:focus-visible {
+    outline: 3px solid rgba(139, 92, 246, 0.6);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Improved touch targets */
+  button, 
+  a[role="button"], 
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 48px;
+    min-width: 48px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Mobile typography optimization */
+  .mobile-heading {
+    font-size: clamp(1.75rem, 8vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    font-weight: 900;
+  }
+
+  .mobile-subheading {
+    font-size: clamp(1.25rem, 6vw, 2rem);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .mobile-body {
+    font-size: clamp(1rem, 4vw, 1.125rem);
+    line-height: 1.6;
+  }
+
+  /* Enhanced mobile cards */
+  .mobile-card {
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-card:active {
+    transform: scale(0.98);
+  }
+
+  /* Mobile-optimized animations */
+  .mobile-fade-in {
+    animation: mobileFadeIn 0.6s ease-out forwards;
+  }
+
+  .mobile-slide-up {
+    animation: mobileSlideUp 0.8s ease-out forwards;
+  }
+
+  /* Thumb-zone optimization */
+  .thumb-zone {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    padding-bottom: calc(16px + env(safe-area-inset-bottom));
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Enhanced mobile navigation */
+  .mobile-nav {
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    margin: 16px;
+    padding: 20px;
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+  }
+
+  .mobile-nav::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .mobile-nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .mobile-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+  }
+
+  /* Mobile button improvements */
+  .mobile-btn-primary {
+    background: linear-gradient(135deg, #8B5CF6 0%, #667eea 100%);
+    border: 0;
+    border-radius: 16px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    min-height: 56px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
+  }
+
+  .mobile-btn-primary:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+  }
+
+  .mobile-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    min-height: 56px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .mobile-btn-secondary:active {
+    transform: translateY(1px) scale(0.98);
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  /* Mobile grid system */
+  .mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .mobile-grid-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* Mobile spacing utilities */
+  .mobile-section {
+    padding: 40px 20px;
+  }
+
+  .mobile-container {
+    max-width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .mobile-spacing-xs { margin-bottom: 8px; }
+  .mobile-spacing-sm { margin-bottom: 16px; }
+  .mobile-spacing-md { margin-bottom: 24px; }
+  .mobile-spacing-lg { margin-bottom: 32px; }
+  .mobile-spacing-xl { margin-bottom: 48px; }
+
+  /* Enhanced hero section for mobile */
+  .mobile-hero {
+    padding: 60px 20px 40px;
+    text-align: center;
+    min-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .mobile-hero-title {
+    font-size: clamp(2rem, 10vw, 3.5rem);
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+
+  .mobile-hero-subtitle {
+    font-size: clamp(1.125rem, 5vw, 1.375rem);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 32px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .mobile-hero-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  /* Mobile course cards */
+  .mobile-course-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 16px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-course-card:active {
+    transform: scale(0.98);
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* Mobile team cards */
+  .mobile-team-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .mobile-team-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-team-card {
+    min-width: 280px;
+    scroll-snap-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 24px;
+    padding: 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  /* Mobile forms */
+  .mobile-form input,
+  .mobile-form textarea {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .mobile-form input:focus,
+  .mobile-form textarea:focus {
+    outline: none;
+    border-color: rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+  }
+}
+
+/* Extra small mobile devices (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .mobile-container {
+    padding: 0 16px;
+  }
+
+  .mobile-section {
+    padding: 32px 16px;
+  }
+
+  .mobile-hero {
+    padding: 40px 16px 32px;
+    gap: 24px;
+  }
+
+  .mobile-course-card,
+  .mobile-team-card {
+    padding: 20px;
+  }
+
+  .mobile-btn-primary,
+  .mobile-btn-secondary {
+    padding: 14px 24px;
+    min-height: 52px;
+    font-size: 15px;
+  }
+}
+
+/* Animation keyframes */
+@keyframes mobileFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes mobileSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile-specific performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce motion for better performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.1s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.1s !important;
+    }
+  }
+
+  /* GPU acceleration for key elements */
+  .mobile-card,
+  .mobile-hero,
+  .mobile-nav,
+  .mobile-btn-primary,
+  .mobile-btn-secondary {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}

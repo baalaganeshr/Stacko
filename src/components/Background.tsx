@@ -34,17 +34,35 @@ const Background = React.memo(() => {
 
       <div className="absolute inset-[-10%] bg-[linear-gradient(110deg,rgba(255,255,255,0.025)_0%,rgba(255,255,255,0.06)_45%,rgba(0,0,0,0)_85%)] diagonal-mask" />
 
-      {floatingShapes.map((shape, index) => (
-        <div
-          key={index}
-          className="floating-shape"
-          style={{
-            width: shape.size,
-            height: shape.size,
-            ...shape.style,
-          }}
-        />
-      ))}
+      {/* Render fewer shapes on mobile for better performance */}
+      <div className="hidden sm:block">
+        {floatingShapes.map((shape, index) => (
+          <div
+            key={index}
+            className="floating-shape"
+            style={{
+              width: shape.size,
+              height: shape.size,
+              ...shape.style,
+            }}
+          />
+        ))}
+      </div>
+      
+      {/* Simplified mobile version */}
+      <div className="block sm:hidden">
+        {floatingShapes.slice(0, 2).map((shape, index) => (
+          <div
+            key={index}
+            className="floating-shape opacity-60"
+            style={{
+              width: `calc(${shape.size} * 0.7)`,
+              height: `calc(${shape.size} * 0.7)`,
+              ...shape.style,
+            }}
+          />
+        ))}
+      </div>
 
       <div
         className="absolute inset-0 opacity-25"

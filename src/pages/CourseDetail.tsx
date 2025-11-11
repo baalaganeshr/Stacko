@@ -2,7 +2,6 @@ import { useEffect, useMemo } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import courses from "@/data/courses";
 import Reveal from "@/components/Reveal";
-import { motion } from "framer-motion";
 
 const CourseDetail = () => {
   const { slug } = useParams();
@@ -60,12 +59,8 @@ const CourseDetail = () => {
           </div>
         </Reveal>
         <Reveal>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="glass-surface rounded-[3rem] border border-white/14 p-12"
-          >
+          <div className="glass-surface rounded-[3rem] border border-white/14 p-12 animate-fade-in-up">
+            
             <p className="text-xs uppercase tracking-[0.32em] text-secondary-500">Enrollment includes</p>
             <ul className="mt-6 space-y-4 text-sm text-white/75">
               <li>Weekly live workshops led by STACKO founders</li>
@@ -73,7 +68,7 @@ const CourseDetail = () => {
               <li>Access to STACKO internship opportunities</li>
               <li>Career storytelling labs and interview prep</li>
             </ul>
-          </motion.div>
+          </div>
         </Reveal>
       </div>
     </div>

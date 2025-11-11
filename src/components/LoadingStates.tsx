@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+
 
 interface SkeletonProps {
   width?: string;
@@ -150,14 +150,8 @@ export const LoadingSpinner = ({ size = "md", className = "" }: {
 
   return (
     <div className={`${sizeClasses[size]} ${className}`}>
-      <motion.div
-        className="w-full h-full border-2 border-white/20 border-t-white/70 rounded-full"
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: 1,
-          repeat: Infinity,
-          ease: "linear"
-        }}
+      <div
+        className="w-full h-full border-2 border-white/20 border-t-white/70 rounded-full animate-spin"
       />
     </div>
   );
@@ -174,16 +168,17 @@ export const ProgressiveImage = ({
   className?: string;
   placeholder?: string;
 }) => (
-  <motion.img
+  <img
     src={src}
     alt={alt}
-    className={className}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.3 }}
+    className={`${className} transition-opacity duration-300 opacity-0 animate-fade-in`}
     loading="lazy"
-    onError={(e) => {
+    onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
       (e.target as HTMLImageElement).src = placeholder;
+    }}
+    onLoad={(e: React.SyntheticEvent<HTMLImageElement>) => {
+      (e.target as HTMLImageElement).classList.remove('opacity-0');
+      (e.target as HTMLImageElement).classList.add('opacity-100');
     }}
   />
 );
