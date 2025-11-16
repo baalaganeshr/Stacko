@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import Hero from "@/components/Hero";
 import TrustIndicators from "@/components/TrustIndicators";
-import CourseShowcase from "@/components/CourseShowcase";
 import StatsShowcase from "@/components/StatsShowcase";
-import ServicesHighlight from "@/components/ServicesHighlight";
 import TeamShowcase from "@/components/TeamShowcase";
 import BlogHighlight from "@/components/BlogHighlight";
 import CTASection from "@/components/CTASection";
@@ -58,27 +56,9 @@ const Home = () => {
       
       {/* Main content with improved spacing */}
       <div className="relative">
-        {/* Floating background shapes for dynamic elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="floating-shape absolute -top-40 -right-20 w-96 h-96 bg-gradient-to-br from-purple-600/20 to-transparent rounded-full blur-3xl" />
-          <div className="floating-shape absolute top-1/3 -left-32 w-80 h-80 bg-gradient-to-br from-indigo-600/15 to-transparent rounded-full blur-2xl" style={{ animationDelay: '-5s' }} />
-          <div className="floating-shape absolute bottom-1/4 right-1/4 w-64 h-64 bg-gradient-to-br from-violet-600/10 to-transparent rounded-full blur-xl" style={{ animationDelay: '-10s' }} />
-        </div>
-
-        {/* Course showcase with asymmetrical layout */}
-        <section className="section-padding">
-          <CourseShowcase />
-        </section>
-
         {/* Statistics with wider spread */}
         <section className="section-padding bg-gradient-to-r from-transparent via-purple-950/10 to-transparent">
           <StatsShowcase />
-        </section>
-
-        {/* Services highlight with diagonal elements */}
-        <section className="section-padding relative">
-          <div className="absolute inset-0 diagonal-mask bg-gradient-to-br from-purple-900/5 to-transparent" />
-          <ServicesHighlight />
         </section>
 
         {/* Team showcase with organic spacing */}

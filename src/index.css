@@ -59,29 +59,47 @@
 
 html {
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: scroll; /* Force scrollbar to always be visible */
   background-color: var(--color-background-primary);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
-  /* Disable smooth scrolling globally to prevent conflicts */
-  scroll-behavior: auto !important;
-  /* Ensure proper text scaling for readability */
+  scroll-behavior: smooth;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
-  /* Prevent horizontal overflow on small screens */
-  max-width: 100vw;
-  /* Enhanced mobile touch scrolling */
   -webkit-overflow-scrolling: touch;
-  /* Better mobile font rendering */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+/* Single beautiful scrollbar for the entire website */
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8B5CF6 0%, #667eea 100%);
+  border-radius: 10px;
+  border: 2px solid #000000;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9F7AEA 0%, #7C3AED 100%);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.8) #000000;
 }
 
 body {
-  height: auto;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
   background-color: var(--color-background-primary);
@@ -89,79 +107,48 @@ body {
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
-  position: relative;
+  min-height: 100%;
   overflow-x: hidden;
-  overflow-y: visible; /* Allow body to flow naturally */
+  overflow-y: auto;
 }
 
-/* Root container should not interfere with scrolling */
+/* Hide scrollbar on body and all other elements */
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+body,
+body * {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+/* Root container */
 #root {
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: visible;
   width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Custom scrollbar styles for main scrollbar only */
-html::-webkit-scrollbar {
-  width: 12px;
-}
-
-html::-webkit-scrollbar-track {
-  background: #1a1a1a;
-}
-
-html::-webkit-scrollbar-thumb {
-  background: #4a5568;
-  border-radius: 6px;
-  border: 2px solid #1a1a1a;
-}
-
-html::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
-}
-
-/* Firefox scrollbar */
-html {
-  scrollbar-width: thin;
-  scrollbar-color: #4a5568 #1a1a1a;
-}
-
-/* Hide scrollbars on specific containers when needed */
-.hide-scrollbar {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* Internet Explorer 10+ */
-}
-
-.hide-scrollbar::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
-}
-
-/* Prevent any element from creating unwanted scrollbars */
+/* Prevent any containers from showing scrollbars */
 .container,
-.max-w-7xl,
-.mx-auto,
 section,
 article,
 nav,
 header,
-main,
 footer,
-div[class*="relative"],
-div[class*="flex"] {
-  overflow-x: visible;
-}
-
-/* Ensure all containers respect the main scroll */
-.min-h-screen {
-  min-height: 100vh;
+div {
   overflow-x: hidden;
 }
 
-/* Fix for any components that might interfere */
-div[class*="bg-"],
-div[class*="glass-"] {
+main {
   overflow-x: hidden;
+  overflow-y: visible;
+  width: 100%;
 }
 
 /* Ensure smooth experience without multiple scrollbars */
@@ -358,6 +345,7 @@ html, body {
   section + section {
     margin-top: var(--spacing-15);
   }
+
 }
 
 @layer utilities {
@@ -1450,15 +1438,15 @@ html, body {
 
   /* Dropdown animations */
   .dropdown-enter {
-    animation: fadeInUp 0.2s ease-out forwards;
+    animation: fadeInUp 0.3s ease-out forwards;
   }
 
   .mobile-menu-enter {
-    animation: fadeInDown 0.2s ease-out forwards;
+    animation: fadeInDown 0.3s ease-out forwards;
   }
 
   .course-items-enter {
-    animation: slideDown 0.2s ease-out forwards;
+    animation: slideDown 0.3s ease-out forwards;
   }
 
   /* =====================================
@@ -1676,8 +1664,12 @@ html, body {
       margin: 0 16px !important;
       max-height: calc(100vh - 140px) !important;
       overflow-y: auto !important;
-      scrollbar-width: thin !important;
-      scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1) !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
+
+    .glass-dropdown::-webkit-scrollbar {
+      display: none !important;
     }
 
     /* Better mobile menu animations */
@@ -1747,6 +1739,7 @@ html, body {
     }
   }
 
+
   /* Apply mobile animations */
   @media (max-width: 768px) {
     .animate-fade-in-up {
@@ -1757,9 +1750,4 @@ html, body {
       animation: mobileFadeIn 0.4s ease-out forwards !important;
     }
   }
-
 }
-
-
-
-

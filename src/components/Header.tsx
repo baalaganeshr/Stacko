@@ -17,6 +17,16 @@ const Header = () => {
   const [isMobileCoursesOpen, setMobileCoursesOpen] = useState(false);
   const coursesButtonRef = useRef<HTMLButtonElement | null>(null);
   const desktopDropdownRef = useRef<HTMLDivElement | null>(null);
+  const closeTimeoutRef = useRef<number | null>(null);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Optimize scroll handler with RAF and passive listener
   useEffect(() => {
@@ -133,8 +143,18 @@ const Header = () => {
           <div
             className="relative"
             style={{ overflow: 'visible' }}
-            onMouseEnter={() => setCoursesOpen(true)}
-            onMouseLeave={() => setCoursesOpen(false)}
+            onMouseEnter={() => {
+              if (closeTimeoutRef.current) {
+                clearTimeout(closeTimeoutRef.current);
+                closeTimeoutRef.current = null;
+              }
+              setCoursesOpen(true);
+            }}
+            onMouseLeave={() => {
+              closeTimeoutRef.current = window.setTimeout(() => {
+                setCoursesOpen(false);
+              }, 150);
+            }}
             onFocusCapture={() => setCoursesOpen(true)}
             onBlurCapture={(event) => {
               if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
@@ -161,7 +181,7 @@ const Header = () => {
                 strokeWidth="2" 
                 strokeLinecap="round" 
                 strokeLinejoin="round"
-                className="transition-transform"
+                className="transition-transform duration-300 ease-out"
                 style={{ transform: isCoursesOpen ? "rotate(180deg)" : "rotate(0deg)" }}
               >
                 <polyline points="6 9 12 15 18 9" />
@@ -173,13 +193,13 @@ const Header = () => {
                 id="desktop-courses-menu"
                 aria-label="STACKO course list"
                 onKeyDown={handleDesktopDropdownKeyDown}
-                className={`glass-dropdown absolute left-0 top-12 w-[30rem] rounded-[2.2rem] p-6 z-50 transition-all duration-200 ease-out ${
+                className={`glass-dropdown absolute left-0 top-12 w-[30rem] rounded-[2.2rem] p-6 z-50 transition-all duration-300 ease-out ${
                   isCoursesOpen 
                     ? 'opacity-100 translate-y-0 pointer-events-auto' 
                     : 'opacity-0 -translate-y-2 pointer-events-none'
                 }`}
                 style={{
-                  animation: isCoursesOpen ? 'fadeInUp 0.2s ease-out forwards' : undefined
+                  animation: isCoursesOpen ? 'fadeInUp 0.3s ease-out forwards' : undefined
                 }}
               >
                   <div className="flex flex-col gap-3">
@@ -188,6 +208,10 @@ const Header = () => {
                         key={course.id}
                         to={"/courses#" + course.slug}
                         className="group rounded-[1.6rem] border border-white/15 bg-white/8 px-4 py-3 transition hover:border-white/30 hover:bg-white/16 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                        onClick={() => {
+                          // Keep dropdown open for a moment during navigation
+                          setTimeout(() => setCoursesOpen(false), 100);
+                        }}
                       >
                         <div className="flex items-center justify-between gap-3">
                           <p className="text-sm font-semibold text-white">{course.title}</p>
@@ -201,6 +225,9 @@ const Header = () => {
                     <Link
                       to="/courses"
                       className="flex items-center justify-between rounded-[1.6rem] border border-dashed border-white/20 px-4 py-3 text-sm font-semibold text-secondary-200 transition hover:border-secondary-400/60 hover:text-secondary-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                      onClick={() => {
+                        setTimeout(() => setCoursesOpen(false), 100);
+                      }}
                     >
                       View full catalog &gt;
                     </Link>
