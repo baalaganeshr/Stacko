@@ -53,9 +53,9 @@ const simpleMentorSummaries: Record<number, string> = {
 };
 
 const mentorRoles: Record<number, string> = {
-  1: "Product Leadership",
-  2: "Technical Leadership", 
-  3: "Education Leadership",
+  1: "CEO",
+  2: "Founder", 
+  3: "CPO",
   4: "Engineering Leadership",
   5: "Research Leadership",
   6: "Program Leadership",
@@ -232,97 +232,61 @@ const TeamShowcase = React.memo(() => {
   }
 
   return (
-    <section className="section-shell section-padding" id="team">
-      <Reveal>
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-4xl space-y-6">
-            <p className="text-xs uppercase tracking-[0.4em] text-white/55">Meet Our Founders</p>
-            <h2 className="balanced-text text-[clamp(2.4rem,4vw,3.6rem)] font-semibold text-white">
-              Expert developers ready to guide you
+    <section className="section-padding bg-[#06070C]" id="team">
+      <div className="max-w-7xl mx-auto px-4">
+        <Reveal>
+          <div className="text-center mb-20">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/40 mb-3">Our Team</p>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Meet Our Founders
             </h2>
-            <p className="text-lg leading-relaxed text-white/85 max-w-3xl">
-              Learn from experienced developers who have built real-world applications. Get personalized mentorship and guidance to accelerate your learning journey.
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">
+              Expert developers with real-world experience building scalable applications
             </p>
           </div>
-          <div className="flex w-full flex-col gap-4 sm:items-end sm:text-right">
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-white/75">
-                Learn from the best
-              </p>
-              <p className="text-xs text-white/60 max-w-xs">
-                Browse our founder profiles using the controls below or scroll to explore.
-              </p>
-            </div>
-          </div>
-        </div>
-      </Reveal>
+        </Reveal>
 
-      <div className="relative mt-12">
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-[#04050b] via-[#04050b]/65 to-transparent lg:w-20" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-[#04050b] via-[#04050b]/65 to-transparent lg:w-20" />
-        <div
-          ref={sliderRef}
-          className="hide-scrollbar flex snap-x snap-mandatory gap-4 sm:gap-6 md:gap-8 lg:gap-10 overflow-x-auto overscroll-x-contain pb-8 px-4 sm:px-6 lg:px-8"
-        >
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {slides.map(({ member, variant }, index) => {
-            const isActive = index === activeIndex;
             const specialties = toSpecialtyTokens(member.specialty || "General expertise").slice(0, 2);
-            const plainBio = member.bio
-              ?.split(".")
-              ?.map((part) => part.trim())
-              ?.filter(Boolean)?.[0] ?? member.bio ?? "Experienced professional";
-            const summary = simpleMentorSummaries[member.id] ?? plainBio ?? "Bringing expertise to help you succeed";
+            const summary = simpleMentorSummaries[member.id] ?? member.bio ?? "Bringing expertise to help you succeed";
             const roleType = mentorRoles[member.id] ?? "Leadership";
-            const experience = mentorExperience[member.id] ?? "5+ years";
+            const experience = mentorExperience[member.id] ?? "1-2 years";
             return (
-              <Reveal key={member.id} delay={index * 0.1} className="snap-center flex-shrink-0">
+              <Reveal key={member.id} delay={index * 0.1}>
                 <article
-                  data-mentor-card="true"
-                  className={`group relative flex h-full w-[min(85vw,22rem)] sm:w-[min(75vw,24rem)] md:w-[min(65vw,26rem)] lg:w-[min(55vw,28rem)] flex-col rounded-2xl border backdrop-blur-sm transition-all duration-500 ${variant.surface} ${isActive ? 'ring-2 ring-white/25 shadow-2xl scale-[1.02] opacity-100' : 'hover:ring-1 hover:ring-white/15 scale-[0.98] opacity-85'}`}
+                  className="group relative flex flex-col h-full rounded-lg bg-[#0d0f14] border border-white/[0.06] transition-all duration-300 hover:border-white/[0.12] hover:bg-[#111318] overflow-hidden"
                 >
-                {/* Professional gradient overlay */}
-                <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${variant.halo} opacity-0 transition-all duration-500 ${isActive ? 'opacity-40' : 'group-hover:opacity-20'}`} />
                 
                 {/* Header Section */}
-                <div className="relative p-6 sm:p-8 pb-4 sm:pb-6">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className={`h-3 w-3 rounded-full ${variant.dot} opacity-80`} />
-                        <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
-                          {roleType}
-                        </span>
-                      </div>
-                      <h3 className="text-xl sm:text-2xl font-bold leading-tight text-white">
-                        {member.name || `Team Member ${index + 1}`}
-                      </h3>
-                      <p className="text-sm font-medium text-white/80">{member.title || "Team Lead"}</p>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-xs font-medium text-white/60 mb-1">Experience</div>
-                      <div className="text-sm font-semibold text-white">{experience}</div>
-                    </div>
+                <div className="relative p-6 pb-5">
+                  {/* Role badge */}
+                  <div className="inline-flex items-center gap-1.5 mb-4 px-2 py-1 rounded bg-white/[0.04] border border-white/[0.06]">
+                    <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-white/50">
+                      {roleType}
+                    </span>
                   </div>
                   
-                  <p className="text-sm leading-relaxed text-white/85">
+                  <h3 className="text-lg font-semibold text-white mb-1.5">
+                    {member.name || `Team Member ${index + 1}`}
+                  </h3>
+                  <p className="text-sm text-white/40 mb-4">{member.title || "Team Lead"}</p>
+                  
+                  <p className="text-sm leading-relaxed text-white/50 line-clamp-2">
                     {summary}
                   </p>
                 </div>
 
                 {/* Expertise Section */}
-                <div className="px-6 sm:px-8 pb-4 sm:pb-6 flex-1">
+                <div className="relative px-6 pb-5 flex-1">
                   {specialties.length > 0 && (
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-2">
-                        <div className="h-px flex-1 bg-white/10" />
-                        <span className="text-xs font-semibold text-white/60 px-3">CORE EXPERTISE</span>
-                        <div className="h-px flex-1 bg-white/10" />
-                      </div>
-                      <div className="grid grid-cols-1 gap-2">
+                    <div className="space-y-2.5">
+                      <h4 className="text-[10px] font-semibold uppercase tracking-wider text-white/30 mb-3">Expertise</h4>
+                      <div className="space-y-2">
                         {specialties.map((specialty) => (
-                          <div key={specialty} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/8">
-                            <div className="h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500" />
-                            <span className="text-sm font-medium text-white/90">{specialty}</span>
+                          <div key={specialty} className="flex items-start gap-2">
+                            <div className="mt-1.5 h-1 w-1 rounded-full bg-secondary-500/40 flex-shrink-0" />
+                            <span className="text-xs text-white/60 leading-relaxed">{specialty}</span>
                           </div>
                         ))}
                       </div>
@@ -331,45 +295,20 @@ const TeamShowcase = React.memo(() => {
                 </div>
 
                 {/* Footer Section */}
-                <div className="p-6 sm:p-8 pt-0">
-                  <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center gap-2">
-                        <div className={`h-2 w-2 rounded-full ${variant.dot} animate-pulse`} />
-                        <span className="text-xs font-medium text-white/70">Available for mentoring</span>
-                      </div>
-                    </div>
-                    {member.portfolio ? (
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          const url = member.portfolio!;
-                          console.log('Button clicked! Opening:', url);
-                          const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-                          if (!newWindow) {
-                            console.error('Popup blocked! Trying location.href');
-                            window.location.href = url;
-                          }
-                        }}
-                        style={{ pointerEvents: 'auto', zIndex: 10 }}
-                        className="relative inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600/80 to-purple-600/80 px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:from-blue-600 hover:to-purple-600 hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
+                <div className="relative p-6 pt-5 border-t border-white/[0.04]">
+                  <div className="flex items-center justify-end">
+                    {member.portfolio && (
+                      <a
+                        href={member.portfolio}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-gradient-to-r from-secondary-600 to-purple-600 text-white text-[11px] font-semibold hover:from-secondary-500 hover:to-purple-500 transition-all duration-200"
                       >
-                        View Portfolio
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        Portfolio
+                        <svg className="h-2.5 w-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                      </button>
-                    ) : (
-                      <Link
-                        to="/about"
-                        className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600/80 to-purple-600/80 px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:from-blue-600 hover:to-purple-600 hover:scale-105 active:scale-95 shadow-lg"
-                      >
-                        Connect
-                        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </Link>
+                      </a>
                     )}
                   </div>
                 </div>
@@ -379,67 +318,13 @@ const TeamShowcase = React.memo(() => {
           })}
         </div>
       </div>
-
-      <div className="mt-10 flex flex-col items-center gap-4">
-        <div className="flex items-center gap-3">
-          <button
-            type="button"
-            onClick={() => {
-              handleNavigate("prev");
-            }}
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/70 transition hover:border-white/30 hover:bg-white/10 hover:text-white"
-            aria-label="Previous mentor"
-          >
-            <span className="text-base transition-transform group-hover:-translate-x-0.5">&larr;</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              handleNavigate("next");
-            }}
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/70 transition hover:border-white/30 hover:bg-white/10 hover:text-white"
-            aria-label="Next mentor"
-          >
-            <span className="text-base transition-transform group-hover:translate-x-0.5">&rarr;</span>
-          </button>
-        </div>
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-          <div className="h-1 w-36 overflow-hidden rounded-full bg-white/10 sm:w-48">
-            <div
-              className="h-full rounded-full bg-white/70 transition-all duration-500 ease-out"
-              style={{ width: `${Math.max(8, progressPercent)}%` }}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            {slides.map((_, index) => {
-              const isActive = index === activeIndex;
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => {
-                    scrollToIndex(index);
-                  }}
-                  aria-label={`Go to mentor ${index + 1}`}
-                  className="group relative h-3 w-3 rounded-full bg-white/12 transition hover:bg-white/20"
-                >
-                  <span
-                    className={`absolute inset-0 rounded-full bg-white/70 transition-all duration-300 ease-out ${
-                      isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-60'
-                    }`}
-                  />
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
     </section>
   );
 });
 
 TeamShowcase.displayName = 'TeamShowcase';
 export default TeamShowcase;
+
 
 
 

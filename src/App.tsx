@@ -9,8 +9,6 @@ import Courses from "@/pages/Courses";
 import CourseDetail from "@/pages/CourseDetail";
 import Services from "@/pages/Services";
 import About from "@/pages/About";
-import Blog from "@/pages/Blog";
-import BlogPost from "@/pages/BlogPost";
 import Contact from "@/pages/Contact";
 import Signup from "@/pages/Signup";
 import Portfolio from "@/pages/Portfolio";
@@ -49,8 +47,6 @@ const AppContent = () => {
               <Route path="/courses/:slug" element={<CourseDetail />} />
               <Route path="/services" element={<Services />} />
               <Route path="/about" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/portfolio" element={<Portfolio />} />

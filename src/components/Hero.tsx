@@ -4,24 +4,24 @@ import MobileButton from "./MobileButton";
 
 const Hero = React.memo(() => {
   return (
-    <section className="relative isolate bg-gradient-to-b from-[#1a0f2e] via-[#0f0a1f] to-[#06070C] section-padding">
-      <div className="pointer-events-none absolute inset-0">
+    <section className="relative isolate bg-gradient-to-b from-[#1a0f2e] via-[#0f0a1f] to-[#06070C] section-padding overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(99,102,241,0.12),transparent_50%)]" />
         <div className="absolute -top-24 -left-12 h-96 w-96 rounded-full bg-purple-600/20 blur-3xl" />
         <div className="absolute -bottom-28 right-0 h-96 w-96 rounded-full bg-indigo-600/15 blur-3xl" />
       </div>
 
-      <div className="page-shell flex items-center justify-center min-h-[80vh] md:min-h-[85vh] py-12 md:py-16">
+      <div className="page-shell flex items-center justify-center min-h-[75vh] md:min-h-[80vh] py-8 md:py-12">
         <div className="flex flex-col justify-center max-w-3xl text-center">
           <span
-            className="uppercase tracking-wider font-semibold mb-6 md:mb-8 text-sm md:text-base animate-[fadeInUp_0.6s_ease-out] text-purple-400"
+            className="uppercase tracking-wider font-semibold mb-4 md:mb-6 text-sm md:text-base animate-[fadeInUp_0.6s_ease-out] text-purple-400"
           >
             🚀 STACKO - Professional Development Platform
           </span>
 
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-6 md:mb-8 leading-[1.1] font-black animate-[fadeInUp_0.8s_ease-out_0.1s_both] tracking-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-4 md:mb-6 leading-[1.1] font-black animate-[fadeInUp_0.8s_ease-out_0.1s_both] tracking-tight"
           >
             Learn modern web development from{' '}
             <span className="bg-gradient-to-r from-purple-400 via-violet-400 to-indigo-400 bg-clip-text text-transparent">
@@ -30,14 +30,13 @@ const Hero = React.memo(() => {
           </h1>
 
           <p
-            className="text-lg md:text-xl leading-relaxed mb-10 md:mb-12 max-w-2xl mx-auto text-white/90 animate-[fadeInUp_0.9s_ease-out_0.2s_both] font-medium"
+            className="text-lg md:text-xl leading-relaxed mb-8 md:mb-10 max-w-2xl mx-auto text-white/90 animate-[fadeInUp_0.9s_ease-out_0.2s_both] font-medium"
           >
-            Master React, Node.js, and full-stack development through hands-on courses. 
-            Build real projects with guidance from experienced developers.
+            Build modern apps, master full-stack skills, and level up faster with Stacko.
           </p>
 
           <div
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full animate-[fadeInUp_0.9s_ease-out_0.3s_both]"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 w-full animate-[fadeInUp_0.9s_ease-out_0.3s_both]"
           >
             <MobileButton
               variant="primary"

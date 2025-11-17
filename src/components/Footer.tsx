@@ -4,32 +4,33 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer style={{ marginTop: '120px', borderTop: '1px solid rgba(255,255,255,0.08)', background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(20px)' }}>
-      <div className="page-shell grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr_1fr]" style={{ gap: '48px md:64px', paddingTop: '60px md:80px', paddingBottom: '40px' }}>
+    <footer className="relative" style={{ marginTop: '40px', background: 'linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.95) 100%)', backdropFilter: 'blur(30px)' }}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6 sm:py-8 md:py-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 sm:gap-6 lg:gap-8">
         {/* Brand Column */}
-        <div className="md:col-span-2 lg:col-span-1 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start" style={{ gap: '16px', marginBottom: '24px' }}>
-            <div className="h-12 w-12 md:h-16 md:w-16 flex items-center justify-center flex-shrink-0">
+        <div className="sm:col-span-2 lg:col-span-1">
+          <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
+            <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center flex-shrink-0">
               <img 
                 src="/stacko-logo.svg" 
                 alt="STACKO Logo" 
-                className="h-full w-full object-contain"
+                className="h-full w-full object-contain drop-shadow-[0_0_12px_rgba(139,92,246,0.5)]"
               />
             </div>
             <div>
-              <p className="text-xl md:text-2xl font-extrabold text-white" style={{ lineHeight: 1 }}>STACKO</p>
-              <p className="text-small" style={{ color: 'var(--color-text-muted)', marginTop: '4px' }}>Programming Collective</p>
+              <p className="text-lg sm:text-xl lg:text-2xl font-bold text-white leading-none tracking-tight">STACKO</p>
+              <p className="text-xs text-secondary-400 mt-1 sm:mt-1.5 font-medium tracking-wide">Programming Collective</p>
             </div>
           </div>
-          <p className="text-small mx-auto md:mx-0" style={{ maxWidth: '400px', color: 'var(--color-text-secondary)', marginBottom: '24px' }}>
+          <p className="text-sm leading-relaxed text-white/60 mb-3 sm:mb-4 max-w-md">
             STACKO teaches modern web development through hands-on courses and provides professional development services.
           </p>
-          <div className="flex flex-col md:flex-row flex-wrap items-center justify-center md:justify-start text-small gap-3 md:gap-4" style={{ color: 'var(--color-text-secondary)' }}>
-            <a className="transition hover:text-white break-all text-center" href="mailto:stackoindustries@gmail.com">
+          <div className="flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2 text-xs sm:text-sm text-white/60">
+            <a className="hover:text-secondary-400 transition-all duration-300 font-medium" href="mailto:stackoindustries@gmail.com">
               stackoindustries@gmail.com
             </a>
-            <span className="hidden md:block" style={{ width: '4px', height: '4px', borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />
-            <a className="transition hover:text-white" href="tel:+919751987380">
+            <span className="text-white/30">•</span>
+            <a className="hover:text-secondary-400 transition-all duration-300 font-medium" href="tel:+919751987380">
               +91 9751987380
             </a>
           </div>
@@ -37,20 +38,20 @@ const Footer = () => {
 
         {/* Company Column */}
         <div>
-          <p className="text-sm uppercase tracking-wider font-semibold" style={{ color: 'var(--color-primary)', marginBottom: '16px' }}>
+          <p className="text-xs uppercase tracking-widest font-bold text-secondary-400 mb-3 sm:mb-4 opacity-90">
             Company
           </p>
-          <div className="flex flex-col" style={{ gap: '16px' }}>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/about">
+          <div className="flex flex-col gap-2.5">
+            <Link className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" to="/about">
               About & Founders
             </Link>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/blog">
+            <Link className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" to="/blog">
               Programming Blog
             </Link>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/services">
+            <Link className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" to="/services">
               Development Services
             </Link>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/contact">
+            <Link className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" to="/contact">
               Book a Consultation
             </Link>
           </div>
@@ -58,19 +59,18 @@ const Footer = () => {
 
         {/* Resources Column */}
         <div>
-          <p className="text-sm uppercase tracking-wider font-semibold" style={{ color: 'var(--color-primary)', marginBottom: '16px' }}>
+          <p className="text-xs uppercase tracking-widest font-bold text-secondary-400 mb-3 sm:mb-4 opacity-90">
             Resources
           </p>
-          <div className="flex flex-col" style={{ gap: '16px' }}>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/courses">
+          <div className="flex flex-col gap-2.5">
+            <Link className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" to="/courses">
               Courses
             </Link>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/blog">
+            <Link className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" to="/blog">
               Blog
             </Link>
             <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
+              className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" 
               href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
               target="_blank"
               rel="noopener noreferrer"
@@ -78,8 +78,7 @@ const Footer = () => {
               Documentation
             </a>
             <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
+              className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" 
               href="mailto:stackoindustries@gmail.com"
             >
               Support
@@ -87,39 +86,14 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Legal Column */}
+        {/* Connect Column */}
         <div>
-          <p className="text-sm uppercase tracking-wider font-semibold" style={{ color: 'var(--color-primary)', marginBottom: '16px' }}>
-            Legal
-          </p>
-          <div className="flex flex-col" style={{ gap: '16px' }}>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/privacy">
-              Privacy
-            </Link>
-            <Link className="text-small transition hover:text-white" style={{ color: 'var(--color-text-secondary)' }} to="/terms">
-              Terms
-            </Link>
-            <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
-              href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Accessibility
-            </a>
-          </div>
-        </div>
-
-        {/* Social Column */}
-        <div>
-          <p className="text-sm uppercase tracking-wider font-semibold" style={{ color: 'var(--color-primary)', marginBottom: '16px' }}>
+          <p className="text-xs uppercase tracking-widest font-bold text-secondary-400 mb-3 sm:mb-4 opacity-90">
             Connect
           </p>
-          <div className="flex flex-col" style={{ gap: '16px' }}>
+          <div className="flex flex-col gap-2.5">
             <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
+              className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium break-words" 
               href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
               target="_blank"
               rel="noopener noreferrer"
@@ -127,22 +101,19 @@ const Footer = () => {
               Contact Form
             </a>
             <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
+              className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium break-all" 
               href="mailto:stackoindustries@gmail.com"
             >
               stackoindustries@gmail.com
             </a>
             <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
+              className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" 
               href="tel:+919751987380"
             >
               +91 9751987380
             </a>
             <a 
-              className="text-small transition hover:text-white" 
-              style={{ color: 'var(--color-text-secondary)' }} 
+              className="text-xs sm:text-sm text-white/60 hover:text-white hover:translate-x-1 transition-all duration-300 font-medium" 
               href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
               target="_blank"
               rel="noopener noreferrer"
@@ -152,21 +123,24 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '32px', paddingBottom: '32px' }}>
-        <div className="page-shell flex flex-col md:flex-row md:items-center md:justify-between" style={{ gap: '16px' }}>
-          <p className="text-small" style={{ color: 'var(--color-text-muted)' }}>
-            © {currentYear} STACKO Labs. Built for the next generation of creators.
-          </p>
-          <div className="flex flex-wrap text-small" style={{ gap: '24px', color: 'var(--color-text-muted)' }}>
-            <Link className="transition hover:text-white" to="/privacy">
-              Privacy
-            </Link>
-            <Link className="transition hover:text-white" to="/terms">
-              Terms
-            </Link>
-            <a className="transition hover:text-white" href="#">
-              Accessibility
-            </a>
+      </div>
+      <div className="mt-4 sm:mt-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-3 sm:py-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+            <p className="text-xs sm:text-sm text-white/40 font-medium text-center md:text-left">
+              © {currentYear} STACKO Labs. Built for the next generation of creators.
+            </p>
+            <div className="flex items-center gap-4 sm:gap-6 text-xs sm:text-sm text-white/40">
+              <Link to="/privacy" className="hover:text-white/60 transition-colors">
+                Privacy
+              </Link>
+              <Link to="/terms" className="hover:text-white/60 transition-colors">
+                Terms
+              </Link>
+              <Link to="/accessibility" className="hover:text-white/60 transition-colors">
+                Accessibility
+              </Link>
+            </div>
           </div>
         </div>
       </div>

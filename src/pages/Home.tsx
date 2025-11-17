@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import Hero from "@/components/Hero";
 import TrustIndicators from "@/components/TrustIndicators";
-import StatsShowcase from "@/components/StatsShowcase";
 import TeamShowcase from "@/components/TeamShowcase";
-import BlogHighlight from "@/components/BlogHighlight";
 import CTASection from "@/components/CTASection";
 import { useSEO } from "@/hooks/useSEO";
 import { useConversionTracking } from "@/hooks/useAnalytics";
@@ -56,19 +54,9 @@ const Home = () => {
       
       {/* Main content with improved spacing */}
       <div className="relative">
-        {/* Statistics with wider spread */}
-        <section className="section-padding bg-gradient-to-r from-transparent via-purple-950/10 to-transparent">
-          <StatsShowcase />
-        </section>
-
         {/* Team showcase with organic spacing */}
         <section className="section-padding">
           <TeamShowcase />
-        </section>
-
-        {/* Blog highlight */}
-        <section className="section-padding bg-gradient-to-l from-transparent via-indigo-950/8 to-transparent">
-          <BlogHighlight />
         </section>
 
         {/* CTA section with full-width treatment */}

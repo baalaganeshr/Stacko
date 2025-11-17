@@ -17,95 +17,102 @@ const officeHours = [
 
 const Contact = () => {
   return (
-    <div className="flex flex-col gap-[calc(var(--spacing-section)*1.1)] pb-[calc(var(--spacing-section)*1.4)] pt-[calc(var(--spacing-block)*0.6)]">
-      <Reveal>
-        <div className="section-shell">
-          <div className="glass-surface rounded-[3.6rem] border border-white/12 bg-[linear-gradient(135deg,rgba(107,70,193,0.35),rgba(0,0,0,0.87))] px-10 py-[clamp(3.5rem,6vw,5.5rem)] md:px-16 text-center">
-            <p className="text-xs uppercase tracking-[0.4em] text-secondary-500">Contact STACKO</p>
-            <h1 className="mt-6 text-[clamp(2.6rem,4.4vw,3.8rem)] font-semibold text-white">Let’s architect your next chapter</h1>
-            <p className="mt-6 max-w-3xl text-lead text-white/80 mx-auto">
-              Share your goals, timeline, and challenges. We’ll assemble a tailored roadmap—whether that’s a cohort seat, a full-stack team on demand, or an AI build that makes your ops sing.
-            </p>
-          </div>
-        </div>
-      </Reveal>
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0f1a] via-[#06070C] to-black pt-24 pb-20 relative">
+      {/* Background gradient effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
+      </div>
 
-      <div className="section-shell grid gap-12 lg:grid-cols-2 lg:items-start">
+      <div className="max-w-5xl mx-auto px-6 relative z-10">
         <Reveal>
-          <div className="glass-surface rounded-[3rem] border border-white/14 p-12 h-fit">
-            <p className="text-xs uppercase tracking-[0.32em] text-secondary-500">Get started</p>
-            <p className="mt-4 text-sm text-white/70">
-              Tell us about your project and we'll get back to you within 24 hours. Our team is ready to help you bring your vision to life.
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-secondary-400 mb-4">Contact</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Let's architect your next chapter
+            </h1>
+            <p className="text-lg text-white/70 max-w-2xl mx-auto">
+              Share your goals, timeline, and challenges. We'll assemble a tailored roadmap for your success.
             </p>
-            
-            <div className="mt-8 space-y-6">
-              <div className="rounded-2xl border border-white/12 bg-black/40 p-6">
-                <p className="text-sm font-semibold text-white">Quick Response</p>
-                <p className="mt-2 text-sm text-white/70">We respond to all inquiries within 24 hours during business days.</p>
-              </div>
-              
-              <div className="rounded-2xl border border-white/12 bg-black/40 p-6">
-                <p className="text-sm font-semibold text-white">Free Consultation</p>
-                <p className="mt-2 text-sm text-white/70">Initial consultation is completely free with no commitment required.</p>
-              </div>
-              
-              <div className="rounded-2xl border border-white/12 bg-black/40 p-6">
-                <p className="text-sm font-semibold text-white">Custom Solutions</p>
-                <p className="mt-2 text-sm text-white/70">Every project gets a tailored approach based on your specific needs.</p>
-              </div>
-            </div>
-
-            <div className="mt-10 rounded-2xl border border-secondary-500/30 bg-secondary-500/10 p-6 text-sm text-secondary-500">
-              <p className="font-semibold">Start Your Project</p>
-              <div className="mt-4">
-                <a
-                  href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary inline-block rounded-2xl px-8 py-3 text-sm font-semibold uppercase tracking-[0.2em] hover:scale-105 transition-transform duration-200"
-                >
-                  Contact Us Now
-                </a>
-              </div>
-              <p className="mt-3 text-white/65">Fill out our project inquiry form to get started.</p>
-            </div>
           </div>
         </Reveal>
-        <Reveal>
-          <div className="glass-surface rounded-[3rem] border border-white/14 p-12">
-            <p className="text-xs uppercase tracking-[0.32em] text-secondary-500">Office hours</p>
-            <p className="mt-4 text-sm text-white/70">
-              We host weekly consults. Choose your track and we’ll pair you with the right founder or lead engineer.
-            </p>
-            <div className="mt-8 space-y-6">
-              {officeHours.map((slot) => (
-                <div key={slot.title} className="rounded-2xl border border-white/12 bg-black/40 p-6">
-                  <p className="text-sm font-semibold text-white">{slot.title}</p>
-                  <p className="mt-2 text-sm text-white/70">{slot.description}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-10 rounded-2xl border border-secondary-500/30 bg-secondary-500/10 p-6 text-sm text-secondary-500">
-              <p className="font-semibold">Direct line</p>
-              <p className="mt-2 text-white/85">
-                <a 
-                  href="mailto:stackoindustries@gmail.com" 
-                  className="hover:text-secondary-300 transition-colors underline decoration-dotted"
-                >
-                  stackoindustries@gmail.com
-                </a>
-                {' · '}
-                <a 
-                  href="tel:+919751987380" 
-                  className="hover:text-secondary-300 transition-colors underline decoration-dotted"
-                >
-                  +91 9751987380
-                </a>
+
+        <div className="grid gap-16 lg:grid-cols-2 mt-20">
+          <Reveal>
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-secondary-400 mb-6">Get Started</h2>
+              <p className="text-white/70 mb-8 leading-relaxed">
+                Tell us about your project and we'll get back to you within 24 hours. Our team is ready to help you bring your vision to life.
               </p>
-              <p className="mt-3 text-white/65">Response within 2 business days.</p>
+              
+              <div className="space-y-6 mb-10">
+                <div className="border-l-2 border-secondary-500/60 pl-4">
+                  <p className="text-sm font-semibold text-white mb-1">Quick Response</p>
+                  <p className="text-sm text-white/60">We respond to all inquiries within 24 hours during business days.</p>
+                </div>
+                
+                <div className="border-l-2 border-secondary-500/60 pl-4">
+                  <p className="text-sm font-semibold text-white mb-1">Free Consultation</p>
+                  <p className="text-sm text-white/60">Initial consultation is completely free with no commitment required.</p>
+                </div>
+                
+                <div className="border-l-2 border-secondary-500/60 pl-4">
+                  <p className="text-sm font-semibold text-white mb-1">Custom Solutions</p>
+                  <p className="text-sm text-white/60">Every project gets a tailored approach based on your specific needs.</p>
+                </div>
+              </div>
+
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-secondary-600 to-purple-600 px-6 py-3 text-sm font-semibold text-white hover:from-secondary-500 hover:to-purple-500 hover:shadow-lg hover:shadow-secondary-500/30 transition-all duration-200"
+              >
+                Contact Us Now
+                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </a>
             </div>
-          </div>
-        </Reveal>
+          </Reveal>
+
+          <Reveal>
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-secondary-400 mb-6">Office Hours</h2>
+              <p className="text-white/70 mb-8 leading-relaxed">
+                We host weekly consults. Choose your track and we'll pair you with the right founder or lead engineer.
+              </p>
+              
+              <div className="space-y-6 mb-10">
+                {officeHours.map((slot) => (
+                  <div key={slot.title} className="border-l-2 border-purple-500/60 pl-4">
+                    <p className="text-sm font-semibold text-white mb-1">{slot.title}</p>
+                    <p className="text-sm text-white/60">{slot.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="border-t border-white/10 pt-6">
+                <p className="text-sm font-semibold text-white mb-3">Direct Line</p>
+                <div className="space-y-2">
+                  <a 
+                    href="mailto:stackoindustries@gmail.com" 
+                    className="block text-sm text-secondary-400 hover:text-secondary-300 transition-colors"
+                  >
+                    stackoindustries@gmail.com
+                  </a>
+                  <a 
+                    href="tel:+919751987380" 
+                    className="block text-sm text-secondary-400 hover:text-secondary-300 transition-colors"
+                  >
+                    +91 9751987380
+                  </a>
+                </div>
+                <p className="mt-3 text-xs text-white/50">Response within 2 business days.</p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </div>
   );

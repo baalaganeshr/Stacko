@@ -1,19 +1,30 @@
-import services from "@/data/services";
 import Reveal from "@/components/Reveal";
 import { Link } from "react-router-dom";
 
-const engagementHighlights = [
+const services = [
   {
-    title: "Discovery blueprint",
-    description: "In-depth workshops with founders and stakeholders to align product strategy, success metrics, and team rituals.",
+    id: 1,
+    icon: "🌐",
+    title: "Website Development",
+    description: "Professional web application development with modern technologies and responsive design.",
   },
   {
-    title: "Glassmorphism design kit",
-    description: "Award-winning visual language packaged as reusable tokens, component libraries, and motion specs for your squad.",
+    id: 2,
+    icon: "📱",
+    title: "Mobile App Development",
+    description: "Native and cross-platform mobile solutions for iOS and Android platforms.",
   },
   {
-    title: "Delivery operations",
-    description: "CI/CD, QA, analytics, and knowledge transfer artifacts so your team can iterate confidently after launch.",
+    id: 3,
+    icon: "🎨",
+    title: "3D Prototyping",
+    description: "Custom 3D modeling and prototyping services for product visualization and design.",
+  },
+  {
+    id: 4,
+    icon: "🤖",
+    title: "Workflow Automation",
+    description: "Intelligent automation solutions including chatbots, Instagram automation, and custom workflow integrations.",
   },
 ];
 
@@ -26,132 +37,99 @@ const Services = () => {
   };
 
   return (
-    <div className="min-h-screen py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-[#0a0f1a] via-[#06070C] to-black py-16 px-4 relative">
+      {/* Background gradient effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-20 right-1/4 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
+      </div>
+
+      {/* Hero Section */}
       <Reveal>
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="glass-surface relative overflow-hidden rounded-[2.5rem] border border-white/12 bg-gradient-to-br from-purple-900/50 to-black/80 p-12 md:p-16 text-center">
-            <div className="absolute -left-24 top-[-30%] h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.4),transparent_70%)] blur-[110px]" />
-            <p className="text-xs uppercase tracking-[0.4em] text-secondary-500">STACKO Development</p>
-            <h1 className="mt-6 text-3xl md:text-4xl font-bold text-white">
-              Professional web development services
-            </h1>
-            <p className="mt-6 max-w-3xl mx-auto text-lg text-white/80">
-              We build modern web applications using React, Node.js, and the latest technologies. From MVP to full-scale applications, we create solutions that work for your business.
-            </p>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row justify-center">
-              <button 
-                onClick={scrollToContact}
-                className="btn btn-primary hover-lift rounded-full px-8 py-3 text-sm font-semibold uppercase tracking-[0.2em]"
-              >
-                Contact Us
-              </button>
-              <Link
-                to="/portfolio"
-                className="btn btn-secondary hover-lift rounded-full px-8 py-3 text-sm font-semibold uppercase tracking-[0.2em]"
-              >
-                View Portfolio
-              </Link>
-            </div>
-          </div>
+        <div className="max-w-5xl mx-auto text-center mb-20 relative z-10">
+          <p className="text-xs uppercase tracking-[0.3em] text-secondary-400 mb-4 font-semibold">Our Services</p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            What We Build
+          </h1>
+          <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto">
+            From web applications to mobile solutions, we deliver professional development services tailored to your business needs.
+          </p>
         </div>
       </Reveal>
 
-      <div className="max-w-7xl mx-auto mt-16 px-4">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+      {/* Services Grid */}
+      <div className="max-w-6xl mx-auto mb-20 relative z-10">
+        <div className="grid gap-6 md:grid-cols-2">
           {services.map((service, index) => (
-            <Reveal key={service.id} delay={index * 0.06}>
-              <article
-                className="glass-surface hover-lift rounded-[2.5rem] border border-white/14 p-8 h-full"
-                id={service.slug}
-              >
-                <div className="flex items-center justify-end text-xs text-white/65">
-                  <span className="text-secondary-500">{service.deliverables.length} key deliverables</span>
-                </div>
-                <h2 className="mt-6 text-2xl font-bold text-white">{service.title}</h2>
-                <p className="mt-4 text-sm text-white/75">{service.description}</p>
-                <div className="mt-8 grid gap-4 text-sm text-white/80">
-                  <p className="text-xs uppercase tracking-[0.28em] text-secondary-500">Deliverables</p>
-                  <ul className="grid gap-3">
-                    {service.deliverables.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-[6px] h-2.5 w-2.5 rounded-full bg-secondary-500" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-8 grid gap-4 text-sm text-white/80">
-                  <p className="text-xs uppercase tracking-[0.28em] text-secondary-500">Outcomes</p>
-                  <ul className="grid gap-3">
-                    {service.outcomes.map((outcome) => (
-                      <li key={outcome} className="flex items-start gap-3 text-white/75">
-                        <span className="mt-[6px] h-2.5 w-2.5 rounded-full bg-secondary-500" />
-                        {outcome}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-10 flex flex-wrap items-center justify-between gap-4 text-sm text-secondary-500">
-                  <button onClick={scrollToContact} className="transition hover:text-secondary-300">
-                    Kick off this sprint →
-                  </button>
-                  <Link to="/portfolio" className="rounded-full border border-secondary-500/30 px-5 py-2 text-xs uppercase tracking-[0.24em]">
-                    View work
-                  </Link>
-                </div>
-              </article>
+            <Reveal key={service.id} delay={index * 0.1}>
+              <div className="group relative p-8 rounded-xl bg-[#0d0f14]/80 border border-white/[0.08] hover:border-secondary-500/40 transition-all duration-300 backdrop-blur-sm">
+                <div className="text-4xl mb-4">{service.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
+                <p className="text-white/60 leading-relaxed text-sm">{service.description}</p>
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-secondary-500/0 to-purple-600/0 group-hover:from-secondary-500/5 group-hover:to-purple-600/5 transition-all duration-300 pointer-events-none" />
+              </div>
             </Reveal>
           ))}
         </div>
       </div>
 
+      {/* Call to Action */}
       <Reveal>
-        <div className="max-w-7xl mx-auto mt-16 px-4">
-          <div className="grid gap-8 rounded-[2.5rem] border border-white/12 bg-black/45 p-12 md:grid-cols-3">
-            {engagementHighlights.map((highlight) => (
-              <div key={highlight.title} className="space-y-3">
-                <p className="text-sm font-semibold text-white">{highlight.title}</p>
-                <p className="text-sm text-white/70">{highlight.description}</p>
-              </div>
-            ))}
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <div className="p-10 rounded-2xl bg-gradient-to-br from-secondary-900/20 via-purple-900/20 to-black/50 border border-white/10">
+            <h2 className="text-3xl font-bold text-white mb-4">Ready to Start Your Project?</h2>
+            <p className="text-white/70 mb-8 max-w-2xl mx-auto">
+              Let's discuss how we can help bring your ideas to life with our professional development services.
+            </p>
+            <a 
+              href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-secondary-600 to-purple-600 px-8 py-4 rounded-lg text-white font-semibold hover:from-secondary-500 hover:to-purple-500 hover:shadow-lg hover:shadow-secondary-500/30 transition-all duration-300"
+            >
+              Get in Touch
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
           </div>
         </div>
       </Reveal>
 
-      {/* Contact Information Section - Always visible at bottom */}
-      <div id="contact-section" className="max-w-7xl mx-auto mt-16 px-4">
-        <div className="glass-surface rounded-[2.5rem] border border-white/12 bg-black/45 p-12 text-center">
+      {/* Contact Information Section */}
+      <div id="contact-section" className="max-w-7xl mx-auto mt-16 px-4 relative z-10">
+        <div className="rounded-2xl border border-white/10 bg-[#0d0f14]/80 backdrop-blur-sm p-12 text-center">
           <h3 className="text-2xl font-semibold text-white mb-8">Contact Information</h3>
           
-          <div className="grid gap-8 md:grid-cols-2 text-center">
+          <div className="grid gap-6 md:grid-cols-2 text-center">
             <a 
               href="mailto:stackoindustries@gmail.com" 
-              className="flex flex-col items-center gap-4 p-8 rounded-2xl border border-white/12 bg-black/40 hover:bg-black/60 transition-all duration-300 group"
+              className="flex flex-col items-center gap-4 p-6 rounded-xl border border-white/[0.08] bg-black/40 hover:bg-black/60 hover:border-secondary-500/40 transition-all duration-300 group"
             >
-              <div className="w-16 h-16 rounded-full bg-secondary-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-3xl">📧</span>
+              <div className="w-14 h-14 rounded-full bg-secondary-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-2xl">📧</span>
               </div>
               <div>
-                <p className="text-sm text-white/60 mb-2">Email us</p>
-                <p className="text-xl font-semibold text-white">stackoindustries@gmail.com</p>
+                <p className="text-xs text-white/50 mb-2 uppercase tracking-wider">Email us</p>
+                <p className="text-lg font-semibold text-secondary-400">stackoindustries@gmail.com</p>
               </div>
             </a>
             
             <a 
               href="tel:+919751987380" 
-              className="flex flex-col items-center gap-4 p-8 rounded-2xl border border-white/12 bg-black/40 hover:bg-black/60 transition-all duration-300 group"
+              className="flex flex-col items-center gap-4 p-6 rounded-xl border border-white/[0.08] bg-black/40 hover:bg-black/60 hover:border-secondary-500/40 transition-all duration-300 group"
             >
-              <div className="w-16 h-16 rounded-full bg-secondary-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <span className="text-3xl">📞</span>
+              <div className="w-14 h-14 rounded-full bg-secondary-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <span className="text-2xl">📞</span>
               </div>
               <div>
-                <p className="text-sm text-white/60 mb-2">Call us</p>
-                <p className="text-xl font-semibold text-white">+91 9751987380</p>
+                <p className="text-xs text-white/50 mb-2 uppercase tracking-wider">Call us</p>
+                <p className="text-lg font-semibold text-secondary-400">+91 9751987380</p>
               </div>
             </a>
           </div>
           
-          <p className="mt-8 text-white/70">
+          <p className="mt-8 text-white/60 text-sm">
             ⏰ We respond within 24 hours during business days
           </p>
         </div>

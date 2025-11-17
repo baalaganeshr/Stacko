@@ -1,34 +1,18 @@
-import { type KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import courses from "@/data/courses";
 
 const primaryLinks = [
+  { label: "Courses", href: "/courses" },
   { label: "Services", href: "/services" },
   { label: "About Us", href: "/about" },
-  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
 const Header = () => {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
-  const [isCoursesOpen, setCoursesOpen] = useState(false);
   const [isMobileOpen, setMobileOpen] = useState(false);
-  const [isMobileCoursesOpen, setMobileCoursesOpen] = useState(false);
-  const coursesButtonRef = useRef<HTMLButtonElement | null>(null);
-  const desktopDropdownRef = useRef<HTMLDivElement | null>(null);
-  const closeTimeoutRef = useRef<number | null>(null);
 
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (closeTimeoutRef.current) {
-        clearTimeout(closeTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  // Optimize scroll handler with RAF and passive listener
   useEffect(() => {
     let ticking = false;
     const onScroll = () => {
@@ -49,80 +33,16 @@ const Header = () => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  const courseList = useMemo(() => courses, []);
-
-  useEffect(() => {
-    if (!isCoursesOpen) {
-      return;
-    }
-
-    const closeOnOutsideClick = (event: MouseEvent | TouchEvent) => {
-      if (
-        desktopDropdownRef.current &&
-        !desktopDropdownRef.current.contains(event.target as Node) &&
-        coursesButtonRef.current &&
-        !coursesButtonRef.current.contains(event.target as Node)
-      ) {
-        setCoursesOpen(false);
-      }
-    };
-
-    window.addEventListener("mousedown", closeOnOutsideClick, { passive: true });
-    window.addEventListener("touchstart", closeOnOutsideClick, { passive: true });
-    return () => {
-      window.removeEventListener("mousedown", closeOnOutsideClick);
-      window.removeEventListener("touchstart", closeOnOutsideClick);
-    };
-  }, [isCoursesOpen]);
-
-  useEffect(() => {
-    if (!isMobileOpen) {
-      setMobileCoursesOpen(false);
-    }
-  }, [isMobileOpen]);
-
   const navLinkClass = (isActive: boolean) =>
     [
       "text-base font-medium transition-colors",
       isActive ? "text-white" : "text-white/70 hover:text-white",
     ].join(" ");
 
-  const handleCoursesKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Escape") {
-      setCoursesOpen(false);
-      coursesButtonRef.current?.focus();
-      return;
-    }
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      if (!isCoursesOpen) {
-        setCoursesOpen(true);
-      }
-      window.requestAnimationFrame(() => {
-        const firstLink = desktopDropdownRef.current?.querySelector<HTMLAnchorElement>("a");
-        firstLink?.focus();
-      });
-      return;
-    }
-
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      setCoursesOpen((prev) => !prev);
-    }
-  };
-
-  const handleDesktopDropdownKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Escape") {
-      setCoursesOpen(false);
-      coursesButtonRef.current?.focus();
-    }
-  };
-
   return (
-    <header className={["sticky top-0 z-50 glass-navbar transition-all duration-300", scrolled ? "shadow-lg" : ""].join(" ")} style={{ overflow: 'visible' }}>
-      <div className="page-shell flex items-center justify-between" style={{ paddingTop: '24px', paddingBottom: '24px', overflow: 'visible' }}>
-        <Link to="/" className="group flex items-center" style={{ gap: '16px' }}>
+    <header className={["sticky top-0 z-50 glass-navbar transition-all duration-300", scrolled ? "shadow-lg" : ""].join(" ")}>
+      <div className="page-shell flex items-center justify-between py-6">
+        <Link to="/" className="group flex items-center gap-4">
           <div className="h-10 w-10 sm:h-12 sm:w-12 md:h-16 md:w-16 flex items-center justify-center flex-shrink-0">
             <img
               src="/stacko-logo.svg"
@@ -139,267 +59,62 @@ const Header = () => {
           </div>
         </Link>
 
-        <nav className="hidden items-center lg:flex" style={{ gap: '40px', overflow: 'visible' }}>
-          <div
-            className="relative"
-            style={{ overflow: 'visible' }}
-            onMouseEnter={() => {
-              if (closeTimeoutRef.current) {
-                clearTimeout(closeTimeoutRef.current);
-                closeTimeoutRef.current = null;
-              }
-              setCoursesOpen(true);
-            }}
-            onMouseLeave={() => {
-              closeTimeoutRef.current = window.setTimeout(() => {
-                setCoursesOpen(false);
-              }, 150);
-            }}
-            onFocusCapture={() => setCoursesOpen(true)}
-            onBlurCapture={(event) => {
-              if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                setCoursesOpen(false);
-              }
-            }}
-          >
-            <button
-              type="button"
-              ref={coursesButtonRef}
-              className={`${navLinkClass(location.pathname.startsWith("/courses"))} flex items-center gap-1`}
-              aria-haspopup="true"
-              aria-expanded={isCoursesOpen}
-              aria-controls="desktop-courses-menu"
-              onKeyDown={handleCoursesKeyDown}
-            >
-              Courses
-              <svg 
-                width="12" 
-                height="12" 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                className="transition-transform duration-300 ease-out"
-                style={{ transform: isCoursesOpen ? "rotate(180deg)" : "rotate(0deg)" }}
-              >
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-            {isCoursesOpen && (
-              <div
-                ref={desktopDropdownRef}
-                id="desktop-courses-menu"
-                aria-label="STACKO course list"
-                onKeyDown={handleDesktopDropdownKeyDown}
-                className={`glass-dropdown absolute left-0 top-12 w-[30rem] rounded-[2.2rem] p-6 z-50 transition-all duration-300 ease-out ${
-                  isCoursesOpen 
-                    ? 'opacity-100 translate-y-0 pointer-events-auto' 
-                    : 'opacity-0 -translate-y-2 pointer-events-none'
-                }`}
-                style={{
-                  animation: isCoursesOpen ? 'fadeInUp 0.3s ease-out forwards' : undefined
-                }}
-              >
-                  <div className="flex flex-col gap-3">
-                    {courseList.map((course) => (
-                      <Link
-                        key={course.id}
-                        to={"/courses#" + course.slug}
-                        className="group rounded-[1.6rem] border border-white/15 bg-white/8 px-4 py-3 transition hover:border-white/30 hover:bg-white/16 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                        onClick={() => {
-                          // Keep dropdown open for a moment during navigation
-                          setTimeout(() => setCoursesOpen(false), 100);
-                        }}
-                      >
-                        <div className="flex items-center justify-between gap-3">
-                          <p className="text-sm font-semibold text-white">{course.title}</p>
-                          <span className="rounded-full bg-white/12 px-3 py-0.5 text-[11px] uppercase tracking-wide text-white/80">
-                            {course.level}
-                          </span>
-                        </div>
-                        <p className="mt-1 text-xs text-white/75">{course.tagline}</p>
-                      </Link>
-                    ))}
-                    <Link
-                      to="/courses"
-                      className="flex items-center justify-between rounded-[1.6rem] border border-dashed border-white/20 px-4 py-3 text-sm font-semibold text-secondary-200 transition hover:border-secondary-400/60 hover:text-secondary-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                      onClick={() => {
-                        setTimeout(() => setCoursesOpen(false), 100);
-                      }}
-                    >
-                      View full catalog &gt;
-                    </Link>
-                  </div>
-                </div>
-              )}
-          </div>
-
+        <nav className="hidden items-center lg:flex gap-10">
           {primaryLinks.map((link) => (
-            <NavLink key={link.href} to={link.href} className={({ isActive }) => navLinkClass(isActive)}>
+            <NavLink
+              key={link.href}
+              to={link.href}
+              className={({ isActive }) => navLinkClass(isActive)}
+            >
               {link.label}
             </NavLink>
           ))}
-        </nav>
-
-        <div className="hidden items-center lg:flex" style={{ gap: '32px' }}>
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn btn-primary"
-            style={{ padding: '12px 24px', borderRadius: '8px', fontSize: '15px', fontWeight: 600 }}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              window.open("https://docs.google.com/forms/d/e/1FAIpQLSftmT9nAdqWqHIW5N_hM4JW5CFHNlKq-H_Sc0ndz_G3r4WXWA/viewform", "_blank", "noopener,noreferrer");
-              return false;
+          <Link
+            to="/courses"
+            className="rounded-full bg-gradient-to-r from-secondary-500 to-primary px-6 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:scale-105 shadow-lg shadow-secondary-500/50 hover:shadow-secondary-500/80"
+            style={{
+              boxShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
             }}
           >
             Start Learning
-          </a>
-        </div>
+          </Link>
+        </nav>
 
         <button
           type="button"
-          onClick={() => setMobileOpen((prev) => !prev)}
-          className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-white/15 bg-white/8 lg:hidden transition-all active:scale-95 hover:bg-white/12 hover:border-white/25 touch-manipulation"
-          aria-label="Toggle navigation"
-          aria-expanded={isMobileOpen}
+          onClick={() => setMobileOpen(!isMobileOpen)}
+          className="lg:hidden flex flex-col gap-1.5 p-2"
+          aria-label="Toggle menu"
         >
-          <span
-            className="absolute block h-0.5 w-6 origin-center bg-white transition-transform duration-300"
-            style={{ transform: isMobileOpen ? "rotate(45deg) translateY(0px)" : "translateY(-6px)" }}
-          />
-          <span
-            className="absolute block h-0.5 w-6 origin-center bg-white transition-opacity duration-200"
-            style={{ opacity: isMobileOpen ? 0 : 1 }}
-          />
-          <span
-            className="absolute block h-0.5 w-6 origin-center bg-white transition-transform duration-300"
-            style={{ transform: isMobileOpen ? "rotate(-45deg) translateY(0px)" : "translateY(6px)" }}
-          />
+          <span className={`h-0.5 w-6 bg-white transition-transform ${isMobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+          <span className={`h-0.5 w-6 bg-white transition-opacity ${isMobileOpen ? 'opacity-0' : ''}`} />
+          <span className={`h-0.5 w-6 bg-white transition-transform ${isMobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
         </button>
       </div>
 
       {isMobileOpen && (
-        <nav
-          className={`glass-dropdown mx-4 mb-6 rounded-[2.4rem] p-5 lg:hidden max-h-[calc(100vh-120px)] overflow-y-auto transition-all duration-200 ease-out ${
-            isMobileOpen 
-              ? 'opacity-100 translate-y-0 pointer-events-auto' 
-              : 'opacity-0 -translate-y-3 pointer-events-none'
-          }`}
-            style={{
-              scrollbarWidth: 'thin',
-              scrollbarColor: 'rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1)'
-            }}
-          >
-            <div className="mb-5">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/60 mb-3">Learn</p>
-              <div className="mt-3">
-                <button
-                  type="button"
-                  className="flex w-full items-center justify-between rounded-2xl border border-white/12 bg-white/8 px-5 py-4 text-left text-base font-semibold text-white transition-all active:scale-[0.98] hover:border-white/20 hover:bg-white/12 touch-manipulation"
-                  aria-expanded={isMobileCoursesOpen}
-                  aria-controls="mobile-courses-menu"
-                  onClick={() => setMobileCoursesOpen((prev) => !prev)}
-                >
-                  <span className="flex items-center gap-2">
-                    <svg 
-                      width="20" 
-                      height="20" 
-                      viewBox="0 0 24 24" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      strokeWidth="2" 
-                      strokeLinecap="round" 
-                      strokeLinejoin="round"
-                      className="text-primary"
-                    >
-                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                    </svg>
-                    Courses
-                  </span>
-                  <span
-                    className="ml-3 flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-white transition-all duration-300"
-                    style={{ 
-                      transform: isMobileCoursesOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      backgroundColor: isMobileCoursesOpen ? "rgba(255, 255, 255, 0.15)" : "rgba(255, 255, 255, 0.1)"
-                    }}
-                    aria-hidden="true"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </span>
-                </button>
-                {isMobileCoursesOpen && (
-                  <div
-                    id="mobile-courses-menu"
-                    className={`overflow-hidden transition-all duration-200 ease-out ${
-                      isMobileCoursesOpen 
-                        ? 'max-h-96 opacity-100' 
-                        : 'max-h-0 opacity-0'
-                    }`}
-                  >
-                      <div className="mt-4 flex flex-col gap-2.5 rounded-2xl border border-white/8 bg-white/5 p-4">
-                        {courseList.map((course) => (
-                          <Link
-                            key={course.id}
-                            to={"/courses#" + course.slug}
-                            className="group rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm transition-all active:scale-[0.97] hover:border-white/25 hover:bg-white/12 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 touch-manipulation"
-                          >
-                            <div className="flex items-start justify-between gap-3 mb-1">
-                              <p className="font-semibold text-white text-base leading-tight">{course.title}</p>
-                              <span className="flex-shrink-0 rounded-full bg-primary/20 px-2 py-0.5 text-[10px] uppercase tracking-wider text-primary font-bold border border-primary/30">
-                                {course.level}
-                              </span>
-                            </div>
-                            <p className="text-xs text-white/70">{course.tagline}</p>
-                          </Link>
-                        ))}
-                        <Link
-                          to="/courses"
-                          className="flex items-center justify-center gap-2 rounded-xl border-2 border-dashed border-white/20 px-4 py-3.5 text-sm font-semibold text-secondary-200 transition-all hover:border-secondary-400/60 hover:text-secondary-100 hover:bg-white/5 active:scale-[0.97] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 touch-manipulation mt-1"
-                        >
-                          <span>View full catalog</span>
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                          </svg>
-                        </Link>
-                      </div>
-                    </div>
-                  )}
-              </div>
-            </div>
-            <div className="mb-5">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/60 mb-3">Explore</p>
-              <div className="mt-4 grid gap-2.5">
-                {primaryLinks.map((link) => (
-                  <NavLink
-                    key={link.href}
-                    to={link.href}
-                    className={({ isActive }) =>
-                      [
-                        "rounded-2xl px-5 py-3.5 text-base font-medium transition-all touch-manipulation active:scale-[0.98]",
-                        isActive 
-                          ? "bg-white/15 text-white border border-white/20 font-semibold" 
-                          : "text-white/70 hover:text-white hover:bg-white/10 border border-transparent hover:border-white/10",
-                      ].join(" ")
-                    }
-                  >
-                    {link.label}
-                  </NavLink>
-                ))}
-              </div>
-            </div>
-            <div className="flex flex-col gap-3">
-              {/* Removed duplicate Start Learning button to fix overlay issue */}
-            </div>
-        </nav>
+        <div className="lg:hidden border-t border-white/10 bg-black/95 backdrop-blur-lg">
+          <nav className="page-shell py-6 flex flex-col gap-4">
+            {primaryLinks.map((link) => (
+              <NavLink
+                key={link.href}
+                to={link.href}
+                className={({ isActive }) => navLinkClass(isActive)}
+              >
+                {link.label}
+              </NavLink>
+            ))}
+            <Link
+              to="/courses"
+              className="rounded-full bg-gradient-to-r from-secondary-500 to-primary px-6 py-3 text-sm font-semibold text-white text-center"
+              style={{
+                boxShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
+              }}
+            >
+              Start Learning
+            </Link>
+          </nav>
+        </div>
       )}
     </header>
   );

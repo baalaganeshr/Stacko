@@ -85,6 +85,63 @@ const services: Service[] = [
     ],
     priceRange: "18K - 50K",
   },
+  {
+    id: 5,
+    slug: "website-development",
+    title: "Professional Website Development",
+    description:
+      "Custom-built, responsive websites and web applications designed to elevate your digital presence with modern technologies and best practices.",
+    deliverables: [
+      "Responsive UI/UX design implementation",
+      "SEO optimization and performance tuning",
+      "Content management system integration",
+      "Cross-browser compatibility testing",
+    ],
+    outcomes: [
+      "Mobile-first, blazing-fast websites",
+      "Enhanced search engine visibility",
+      "Scalable and maintainable codebase",
+    ],
+    priceRange: "5K - 18K",
+  },
+  {
+    id: 6,
+    slug: "mobile-app-development",
+    title: "Mobile Application Development",
+    description:
+      "Native and cross-platform mobile applications engineered for iOS and Android with seamless user experiences and robust performance.",
+    deliverables: [
+      "Native or React Native development",
+      "App Store and Play Store deployment",
+      "Push notifications and analytics",
+      "Offline-first architecture",
+    ],
+    outcomes: [
+      "High-performance mobile apps",
+      "Unified codebase for iOS & Android",
+      "App store optimization and launch support",
+    ],
+    priceRange: "20K - 45K",
+  },
+  {
+    id: 7,
+    slug: "3d-prototyping",
+    title: "Custom 3D Prototyping & Modeling",
+    description:
+      "Bespoke 3D modeling, prototyping, and interactive visualization services for product design, architectural previews, and immersive web experiences.",
+    deliverables: [
+      "High-fidelity 3D model creation",
+      "Interactive 3D web integration (Three.js/R3F)",
+      "Product visualization and animation",
+      "AR/VR-ready asset preparation",
+    ],
+    outcomes: [
+      "Photorealistic product representations",
+      "Enhanced customer engagement",
+      "Reduced prototyping costs and time",
+    ],
+    priceRange: "8K - 25K",
+  },
 ];
 
 export default services;
