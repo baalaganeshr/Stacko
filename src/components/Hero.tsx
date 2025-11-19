@@ -6,14 +6,23 @@ const Hero = React.memo(() => {
   return (
     <section className="relative isolate bg-gradient-to-b from-[#1a0f2e] via-[#0f0a1f] to-[#06070C] section-padding overflow-hidden">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* Logo watermark background */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-[0.12]">
+          <img 
+            src="/stacko-logo-bg.png" 
+            alt="" 
+            className="w-[150%] sm:w-[110%] md:w-[85%] lg:w-[70%] max-w-[900px] md:max-w-[1200px] lg:max-w-[1400px] h-auto object-contain"
+            aria-hidden="true"
+          />
+        </div>
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(124,58,237,0.15),transparent_50%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(99,102,241,0.12),transparent_50%)]" />
         <div className="absolute -top-24 -left-12 h-96 w-96 rounded-full bg-purple-600/20 blur-3xl" />
         <div className="absolute -bottom-28 right-0 h-96 w-96 rounded-full bg-indigo-600/15 blur-3xl" />
       </div>
 
-      <div className="page-shell flex items-center justify-center min-h-[70vh] md:min-h-[80vh] py-12 md:py-16">
-        <div className="flex flex-col justify-center max-w-4xl text-center w-full px-4">
+      <div className="page-shell flex items-center justify-center min-h-[70vh] md:min-h-[80vh] py-16 md:py-20">
+        <div className="flex flex-col justify-center items-center max-w-5xl text-center w-full px-6 md:px-8">
           <span
             className="uppercase tracking-wider font-semibold mb-4 md:mb-6 text-sm md:text-base animate-[fadeInUp_0.6s_ease-out] text-purple-400"
           >
